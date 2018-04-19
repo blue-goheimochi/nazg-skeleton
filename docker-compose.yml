@@ -1,0 +1,20 @@
+version: '2'
+services:
+  hhvm:
+    build: ./docker/hhvm
+    environment:
+      - HHVM_PORT=9000
+      - HHVM_SOURCE_ROOT=/var/www/public
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./:/var/www
+      - ./docker/hhvm/php.ini:/etc/hhvm/php.ini
+      - ./docker/hhvm/server.ini:/etc/hhvm/server.ini
+  composer:
+    build: ./docker/composer
+    volumes:
+      - ./:/app
+      - ./docker/composer/php.ini:/etc/hhvm/php.ini
+      - ./docker/composer/config.ini:/etc/hhvm/config.ini
+    working_dir: /app
